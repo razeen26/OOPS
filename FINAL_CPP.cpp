@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//Account Class
 class account
 {
     public:
@@ -11,6 +12,7 @@ class account
     string password;
 };
 
+//Cinema Class
 class cinema
 {
     public:
@@ -31,6 +33,7 @@ class cinema
     }
 }cine;
 
+//Admin Account class
 class admin:public account
 {
     public:
@@ -42,6 +45,7 @@ class admin:public account
     friend void admin_login();
 }admin_obj;
 
+//Admin Login
 void admin_login()
 {
     fstream admin_file;
@@ -51,6 +55,7 @@ void admin_login()
     admin_file.open("admin.txt",ios::in);
     getline(admin_file,s,' ');
     getline(admin_file,s1,'\n');
+    //Admin Credentials
     cout<<"\nEnter Username for Admin: ";
     cin>>temp_username;
     cout<<"\nEnter Password for Admin: ";
@@ -67,11 +72,13 @@ void admin_login()
     admin_file.close();
     do
     {
+        //Admin Operations
         cout<<"What do you want to do?\n\n1. Show Movies\n2. Remove Movies and Timing\n3. Add Movies and Timing\n4. Change Password\n5. Exit\n\nEnter: ";
         cin>>temp;
         switch(temp)
         {
             case 1: {
+                        //Show Movies
                         cout<<"\nPrinting Movies list:\n";
                         ifstream movie_file;
                         cinema c;
@@ -88,6 +95,7 @@ void admin_login()
                     }
 
             case 2: {
+                        //Delete Movies
                         string temp;
                         string str;
                         fstream movie,dup_movie;
@@ -120,6 +128,7 @@ void admin_login()
                     }
 
             case 3: {
+                        //Add Movies
                         ofstream movies_file;
                         movies_file.open("movies.txt",ios::app);
                         cine.get();
@@ -131,6 +140,7 @@ void admin_login()
                     }
 
             case 4: {
+                        //Change Admin Password
                         cout<<"Enter new password for Admin: ";
                         cin>>admin_obj.password;
                         fstream f;
@@ -141,6 +151,7 @@ void admin_login()
                     }
 
             case 5: {
+                        //Exit
                         cout<<"\n--------------EXITTING FROM ADMIN MENU---------------\n";
                         break;
                     }
@@ -150,6 +161,7 @@ void admin_login()
     admin_file.close();
 }
 
+//User Account Class
 class user:public account
 {
     public:
@@ -164,11 +176,14 @@ class user:public account
     friend void user_signup();
 }user_obj;
 
+
+//User Login
 void user_login()
 {
     string temp_username;
     string temp_password;
     bool status=0;
+    //User Credentials
     cout<<"\nEnter Username: ";
     cin>>temp_username;
     cout<<"\nEnter Password: ";
@@ -201,27 +216,30 @@ void user_login()
     }
     else
     {
+        //User Operations
         do
         {   cout<<"\nUser Menu:\n1. View Movies\n2. Book movies\n3. Exit\nEnter: ";
             cin>>temp;
             switch(temp)
             {
                 case 1: {
-                        cout<<"\nPrinting Movies list:\n";
-                        ifstream movie_file;
-                        cinema c;
-                        movie_file.open("movies.txt",ios::in);
-                        movie_file.seekg(0,ios::beg);
-                        while(!movie_file.eof())
-                        {
-                            movie_file>>c.cine_name;
-                            movie_file>>c.cine_time;
-                            cout<<c.cine_name<<"  "<<c.cine_time<<endl;
-                        }
-                        movie_file.close();
-                        break;
+                            //View Movies
+                            cout<<"\nPrinting Movies list:\n";
+                            ifstream movie_file;
+                            cinema c;
+                            movie_file.open("movies.txt",ios::in);
+                            movie_file.seekg(0,ios::beg);
+                            while(!movie_file.eof())
+                            {
+                                movie_file>>c.cine_name;
+                                movie_file>>c.cine_time;
+                                cout<<c.cine_name<<"  "<<c.cine_time<<endl;
                             }
+                            movie_file.close();
+                            break;
+                        }
                 case 2: {
+                            //Book Movies
                             string temp_movie;
                             bool status=0;
                             string s,s1;
@@ -251,6 +269,7 @@ void user_login()
                             break;
                         }
                 case 3: {
+                            //Exit
                             cout<<"\n----------------EXITTING USER MENU-----------------\n";
                             break;
                         }
@@ -260,6 +279,7 @@ void user_login()
     }
 }
 
+//New User SignUp
 void user_signup()
 {
     cout<<"\nEnter new details:\n";
